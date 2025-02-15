@@ -1,4 +1,5 @@
 from flask import Flask,jsonify, request
+from flask import request
 
 app = Flask(__name__)
 
@@ -10,12 +11,15 @@ def entry_point():
 def salam_sehat():
     return jsonify(message="Assalamualaikum")
 
-@app.route('/test',methods = ['GET','POST'])
+@app.route('/test',methods = ['POST','GET'])
 def test():
-    if request.method == 'GET':
-        return jsonify(message="Assalamualaikum GET")
-    elif request.method == 'POST':
-        return jsonify(message="Waalaikumsalam POST")
+    if request.method == 'POST':
+        body = request.get_json()
+        # print("Body nya adalah", body)
+        print(body['data'])
+        return jsonify(message="Assalamualaikum POST",data=body['data'])
+    elif request.method == 'GET':
+        return jsonify(message="Waalaikumsalam GET")
 
 if __name__ == '__main__':
     app.run(debug=True)
