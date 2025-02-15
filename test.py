@@ -15,9 +15,16 @@ def salam_sehat():
 def test():
     if request.method == 'POST':
         body = request.get_json()
+        params = request.args.get('timestamp')
+        print(params)
         # print("Body nya adalah", body)
-        print(body['data'])
-        return jsonify(message="Assalamualaikum POST",data=body['data'])
+        # print(body['data'])
+        # return jsonify(message="Assalamualaikum POST",data=body['data'])
+        return {
+            "message":"Hello, i have processed your request",
+            "data":body['data'],
+            "params":params
+        }
     elif request.method == 'GET':
         return jsonify(message="Waalaikumsalam GET")
 
